@@ -29,16 +29,16 @@ One solution is just having those .desktop files hidden by cloning to ~/.local/s
 
 ### Build
 
-mkdir build && cd build
+`mkdir build && cd build
 cmake ..
-make
+make`
 
 ### To use
 You might have to run this to make the bin dir
-mkdir ~/.local/bin
+- mkdir ~/.local/bin
 
 Run this to copy the file to user bin
-cp hyprsessionmanager ~/.local/bin/hyprsessionmanager
+- cp hyprsessionmanager ~/.local/bin/hyprsessionmanager
 
 Also add this to make your shell find the bin
-export PATH="$HOME/.local/bin:$PATH"
+- export PATH="$HOME/.local/bin:$PATH"
