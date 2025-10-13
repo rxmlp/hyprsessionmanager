@@ -42,27 +42,3 @@ cp hyprsessionmanager ~/.local/bin/hyprsessionmanager
 
 Also add this to make your shell find the bin
 export PATH="$HOME/.local/bin:$PATH"
-
----
-
-## Usage
-
-Run the GUI session manager:
-hyprsessionmanager
-
-### CLI options
-
-- Save current session:
-hyprsessionmanager --new-cache
-
-- Restore newest session:
-
-hyprsessionmanager --restore-latest
-
----
-
-## Configuration
-
-Cache files are stored in:
-
-~/.cache/hyprsession
