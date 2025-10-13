@@ -29,9 +29,11 @@ One solution is just having those .desktop files hidden by cloning to ~/.local/s
 
 ### Build
 
-`mkdir build && cd build
+```
+mkdir build && cd build
 cmake ..
-make`
+make
+```
 
 ### To use
 You might have to run this to make the bin dir
