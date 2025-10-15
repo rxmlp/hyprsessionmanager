@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=HyprSessionManager
+Comment=Manage Hyprland sessions
+Exec=hyprsessionmanager
+Icon=hyprsessionmanager
+Terminal=false
+Type=Application
+Categories=Utility;

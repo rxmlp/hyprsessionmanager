@@ -149,19 +149,20 @@ void SessionManager::createNewCache() {
     QString timestamp = QDateTime::currentDateTime().toString("yyyyMMdd-HHmmss");
     QString cacheFile = cacheDir + "/session-" + timestamp;
 
-    QString script = QString(R"(
-        mkdir -p '%1'
-        hyprctl clients -j | jq -r '.[].initialClass' | sort -u | while read -r class; do
-            if [ -z "$class" ]; then continue; fi
-            desktop_path="$HOME/.local/share/applications/${class}.desktop"
-            if [ ! -f "$desktop_path" ]; then
-                desktop_path="/usr/share/applications/${class}.desktop"
-            fi
-            if [ -f "$desktop_path" ]; then
-                echo "$desktop_path"
-            fi
-        done > '%2'
-    )").arg(cacheDir, cacheFile);
+QString script = QString(R"(
+    mkdir -p '%1'
+    hyprctl clients -j | jq -r '.[].initialClass' | sort -u | while read -r class; do
+        if [ -z "$class" ]; then continue; fi
+        if [ "$class" = "hyprsessionmanager" ]; then continue; fi
+        desktop_path="$HOME/.local/share/applications/${class}.desktop"
+        if [ ! -f "$desktop_path" ]; then
+            desktop_path="/usr/share/applications/${class}.desktop"
+        fi
+        if [ -f "$desktop_path" ]; then
+            echo "$desktop_path"
+        fi
+    done > '%2'
+)").arg(cacheDir, cacheFile);
 
     QProcess process;
     process.start("bash", QStringList() << "-c" << script);
