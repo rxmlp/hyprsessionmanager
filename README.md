@@ -19,9 +19,11 @@ One solution is just having those .desktop files hidden by cloning to ~/.local/s
 
 ## Installation
 Option 1
+
 yay -S hyprsessionmanager-git
 
 Option 2
+
 You might have to run this to make the bin dir
 - `mkdir ~/.local/bin`
 
