@@ -79,6 +79,8 @@ void SessionManager::refreshSessionList() {
 }
 
 
+#include <QDateTime>
+
 void SessionManager::restoreLatestSession() {
     QDir dir(cacheDir);
     QStringList filters{"session-*"};
@@ -92,10 +94,29 @@ void SessionManager::restoreLatestSession() {
     QFileInfo latestSession = files.first(); // sorted by modification time descending
 
     QString filename = latestSession.fileName();
-    QString filepath = cacheDir + "/" + filename;
+
+    // Expected format: session-YYYYMMDD-HHMMSS
+    const QString prefix = "session-";
+    QString timestampStr;
+    if (filename.startsWith(prefix)) {
+        timestampStr = filename.mid(prefix.length()); // "20231015-025400"
+    } else {
+        timestampStr = filename;
+    }
+
+    // Parse timestamp string with format yyyyMMdd-HHmmss
+    QDateTime dt = QDateTime::fromString(timestampStr, "yyyyMMdd-HHmmss");
+    if (!dt.isValid()) {
+        dt = QDateTime::currentDateTime(); // fallback
+    }
+
+    // Format output as "15 Oct 2025 [02:54]"
+    QString displayName = dt.toString("dd MMM yyyy [HH:mm]");
+
+    QString filepath = dir.absoluteFilePath(filename);
 
     QMessageBox::StandardButton ret = QMessageBox::question(this, "Restore Latest Session",
-        "Restore latest session:\n" + latestSession.fileName() + "?",
+        QString("Restore latest session:\n%1?").arg(displayName),
         QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
 
     if (ret == QMessageBox::Yes) {
@@ -104,6 +125,7 @@ void SessionManager::restoreLatestSession() {
         }
     }
 }
+
 
 
 void SessionManager::restoreSelectedSession() {
@@ -198,5 +220,3 @@ bool SessionManager::restoreSession(const QString &filepath) {
     file.close();
     return true;
 }
-
-#include "SessionManager.moc"

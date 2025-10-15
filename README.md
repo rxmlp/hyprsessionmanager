@@ -13,19 +13,23 @@ One solution is just having those .desktop files hidden by cloning to ~/.local/s
 - Restore the latest session with one click.
 - Command-line flags for quick session management without the GUI:
   - `--new-cache` to save the current session.
-  - `--restore-latest` to restore the newest saved session.
-  - `--ask-restore-latest` asks to restore the latest session. (Useful on eg boot/login)
+  - `--restore-latest` asks to restore the latest session. (Useful on eg boot/login)
 
 ---
 
 ## Installation
+Option 1
+yay -S hyprsessionmanager-git
 
-### Dependencies
+Option 2
+You might have to run this to make the bin dir
+- `mkdir ~/.local/bin`
 
-- Qt6 (Qt6Widgets)
-- hyprctl (Hyprland client tool)
-- jq (JSON processor)
-- bash shell environment
+Run this to copy the file to user bin
+- `cp hyprsessionmanager ~/.local/bin/hyprsessionmanager`
+
+Also add this to make your shell find the bin
+- `export PATH="$HOME/.local/bin:$PATH"`
 
 ### Build
 
@@ -35,12 +39,9 @@ cmake ..
 make
 ```
 
-### To use
-You might have to run this to make the bin dir
-- `mkdir ~/.local/bin`
+### Dependencies
 
-Run this to copy the file to user bin
-- `cp hyprsessionmanager ~/.local/bin/hyprsessionmanager`
-
-Also add this to make your shell find the bin
-- `export PATH="$HOME/.local/bin:$PATH"`
+- Qt6 (Qt6Widgets)
+- hyprctl (Hyprland client tool)
+- jq (JSON processor)
+- bash shell environment
