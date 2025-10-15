@@ -91,26 +91,19 @@ void SessionManager::restoreLatestSession() {
         return;
     }
 
-    QFileInfo latestSession = files.first(); // sorted by modification time descending
-
+    QFileInfo latestSession = files.first();
     QString filename = latestSession.fileName();
-
-    // Expected format: session-YYYYMMDD-HHMMSS
     const QString prefix = "session-";
     QString timestampStr;
     if (filename.startsWith(prefix)) {
-        timestampStr = filename.mid(prefix.length()); // "20231015-025400"
+        timestampStr = filename.mid(prefix.length());
     } else {
         timestampStr = filename;
     }
-
-    // Parse timestamp string with format yyyyMMdd-HHmmss
     QDateTime dt = QDateTime::fromString(timestampStr, "yyyyMMdd-HHmmss");
     if (!dt.isValid()) {
-        dt = QDateTime::currentDateTime(); // fallback
+        dt = QDateTime::currentDateTime();
     }
-
-    // Format output as "15 Oct 2025 [02:54]"
     QString displayName = dt.toString("dd MMM yyyy [HH:mm]");
 
     QString filepath = dir.absoluteFilePath(filename);
